@@ -1,0 +1,46 @@
+﻿<Window x:Class="WPFBugs.IMEPosition"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Title="IME Position" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="{x:Type ToggleButton}">
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="TextBox in Window:"/>
+                <TextBox/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="TextBox in Popup:"/>
+                <ToggleButton x:Name="MyToggleButton" Content="Show Popup"/>
+                <Popup x:Name="MyPopup" PlacementTarget="{Binding ElementName=MyToggleButton}"
+                       Placement="Right" StaysOpen="False" AllowsTransparency="True"
+                       IsOpen="{Binding IsChecked, ElementName=MyToggleButton}">
+                    <StackPanel Orientation="Vertical" Background="LightGray" Margin="10">
+                        <StackPanel.Effect>
+                            <DropShadowEffect Color="LightGray"/>
+                        </StackPanel.Effect>
+                        <TextBlock Text="While inputing, the IME will not stay beside the TextBox"/>
+                        <TextBox x:Name="MyTextBox" Width="300"/>
+                    </StackPanel>
+                </Popup>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
